@@ -6,7 +6,6 @@ import lightapp.example.domain.command.LightCommand;
 import lightapp.example.domain.command.LightException;
 import lightapp.example.domain.command.TurnLightOffCommand;
 import lightapp.example.domain.command.TurnLightOnCommand;
-import rd.command.framework.domain.Command;
 import rd.command.framework.domain.CommandException;
 import rd.command.framework.domain.CommandNotImplementedException;
 import rd.command.framework.service.FutureTaskCommandProcessor;
@@ -22,7 +21,7 @@ public class LightCommandProcessorService
   }
 
   @Override
-  public LightState process(Command command) throws CommandException {
+  public LightState process(LightCommand command) throws CommandException {
     try {
       if (command instanceof TurnLightOnCommand) {
         synchronized (lock) {

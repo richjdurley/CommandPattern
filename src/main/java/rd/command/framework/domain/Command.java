@@ -18,16 +18,16 @@ public abstract class Command<Result> {
   }
 
   public void commandSucceeded() {
-    commandResult.setStatus(CommandStatus.SUCCESS);
+    commandSucceeded(null);
   }
 
   public void commandSucceeded(Result result) {
-    commandResult.setResult(result);
     commandResult.setStatus(CommandStatus.SUCCESS);
+    commandResult.setResult(result);
   }
 
   public void commandFailed() {
-    this.commandResult.setStatus(CommandStatus.FAILED);
+    commandFailed(new CommandException());
   }
 
   public void commandFailed(CommandException commandException) {
@@ -37,9 +37,5 @@ public abstract class Command<Result> {
 
   public CommandResult<Result> getCommandResult() {
     return commandResult;
-  }
-
-  public void setCommandResult(CommandResult<Result> commandResult) {
-    this.commandResult = commandResult;
   }
 }
