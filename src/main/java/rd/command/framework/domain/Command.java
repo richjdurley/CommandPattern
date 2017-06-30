@@ -1,8 +1,16 @@
 package rd.command.framework.domain;
 
+import java.util.UUID;
+
 public abstract class Command<Result> {
 
+  String commandID;
+
   CommandResult<Result> commandResult;
+
+  public Command() {
+    this.commandID = UUID.randomUUID().toString();
+  }
 
   public void commandSucceeded(Result result) {
     commandResult = new CommandResult<Result>();
@@ -26,5 +34,9 @@ public abstract class Command<Result> {
 
   public void setCommandResult(CommandResult<Result> commandResult) {
     this.commandResult = commandResult;
+  }
+
+  public String getCommandID() {
+    return commandID;
   }
 }

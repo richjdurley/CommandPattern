@@ -22,10 +22,12 @@ public class LightApp {
 
     try {
       System.out.println("SENDING: LIGHT ON COMMAND 1");
+      TurnLightOnCommand turnLightOnCommand = new TurnLightOnCommand();
       FutureTask<LightCommand> command1status =
-          lightCommandProcessor.accept(new TurnLightOnCommand());
+          lightCommandProcessor.accept(turnLightOnCommand);
 
       System.out.println("SENDING: LIGHT OFF COMMAND 2");
+      TurnLightOffCommand turnLightOffCommand = new TurnLightOffCommand();
       FutureTask<LightCommand> command2status =
           lightCommandProcessor.accept(new TurnLightOffCommand());
 
@@ -33,13 +35,13 @@ public class LightApp {
         Thread.sleep(100);
       }
       System.out.println(
-          "LIGHT ON COMMAND 1 STATUS: " + command1status.get().getCommandResult().getStatus());
+          "LIGHT ON COMMAND " + turnLightOnCommand.getCommandID() +  "  STATUS: " + command1status.get().getCommandResult().getStatus());
       System.out.println(
-          "LIGHT ON COMMAND 1 RESULT: " + command1status.get().getCommandResult().getResult());
+          "LIGHT ON COMMAND RESULT: " + command1status.get().getCommandResult().getResult());
       System.out.println(
-          "LIGHT OFF COMMAND 2 STATUS: " + command2status.get().getCommandResult().getStatus());
+          "LIGHT OFF COMMAND " + turnLightOffCommand.getCommandID() + " STATUS: " + command2status.get().getCommandResult().getStatus());
       System.out.println(
-          "LIGHT OFF COMMAND 2 RESULT: " + command2status.get().getCommandResult().getResult());
+          "LIGHT OFF COMMAND RESULT: " + command2status.get().getCommandResult().getResult());
     } finally {
       lightCommandProcessor.close();
     }
