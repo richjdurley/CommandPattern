@@ -1,49 +1,18 @@
 package lightapp.example;
 
-import lightapp.example.domain.Light;
-import lightapp.example.domain.LightState;
-import lightapp.example.domain.command.LightCommand;
-import lightapp.example.domain.command.TurnLightOffCommand;
-import lightapp.example.domain.command.TurnLightOnCommand;
-import lightapp.example.service.LightCommandProcessorService;
-
-import java.util.concurrent.FutureTask;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * DEMO COMMAND PATTERN USING LIGHT ON AND OFF COMMANDS, NOTE AS THESE COMMANDS ARE SENT CONCURRENTLY
- * THEY CAN FAIL IF THE SECOND COMMAND GETS EXECUTED BEFORE THE FIRST COMMAND!
+ * DEMO COMMAND PATTERN USING LIGHT ON AND OFF COMMANDS TO ASYNC CALLABLE API, NOTE AS THESE
+ * COMMANDS CAN BE SENT CONCURRENTLY THEY CAN FAIL IF THE SECOND COMMAND GETS EXECUTED BEFORE THE
+ * FIRST COMMAND!
  */
+@SpringBootApplication
+@EnableAutoConfiguration
 public class LightApp {
-
-  public static void main(String args[]) throws Exception {
-
-    Light light = new Light(LightState.OFF);
-    LightCommandProcessorService lightCommandProcessor = new LightCommandProcessorService(light);
-
-    try {
-      System.out.println("SENDING: LIGHT ON COMMAND 1");
-      TurnLightOnCommand turnLightOnCommand = new TurnLightOnCommand();
-      FutureTask<LightCommand> command1status =
-          lightCommandProcessor.accept(turnLightOnCommand);
-
-      System.out.println("SENDING: LIGHT OFF COMMAND 2");
-      TurnLightOffCommand turnLightOffCommand = new TurnLightOffCommand();
-      FutureTask<LightCommand> command2status =
-          lightCommandProcessor.accept(new TurnLightOffCommand());
-
-      while (!command1status.isDone() && !command2status.isDone()) {
-        Thread.sleep(100);
-      }
-      System.out.println(
-          "LIGHT ON COMMAND " + turnLightOnCommand.getCommandID() +  "  STATUS: " + command1status.get().getCommandResult().getStatus());
-      System.out.println(
-          "LIGHT ON COMMAND RESULT: " + command1status.get().getCommandResult().getResult());
-      System.out.println(
-          "LIGHT OFF COMMAND " + turnLightOffCommand.getCommandID() + " STATUS: " + command2status.get().getCommandResult().getStatus());
-      System.out.println(
-          "LIGHT OFF COMMAND RESULT: " + command2status.get().getCommandResult().getResult());
-    } finally {
-      lightCommandProcessor.close();
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(LightApp.class, args);
   }
 }

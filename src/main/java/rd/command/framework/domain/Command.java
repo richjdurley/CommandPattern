@@ -1,5 +1,4 @@
 package rd.command.framework.domain;
-
 import java.util.UUID;
 
 public abstract class Command<Result> {

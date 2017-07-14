@@ -3,12 +3,6 @@ import org.junit.Test;
 import rd.command.framework.domain.Command;
 import rd.command.framework.domain.CommandException;
 import rd.command.framework.domain.CommandStatus;
-import rd.command.framework.service.CommandProcessor;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import static org.hamcrest.CoreMatchers.isA;
 
