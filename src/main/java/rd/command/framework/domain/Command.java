@@ -1,15 +1,22 @@
 package rd.command.framework.domain;
+
 import java.util.UUID;
 
 public abstract class Command<Result> {
 
   String commandID;
+  String commandName;
 
   CommandResult<Result> commandResult;
 
   public Command() {
     this.commandID = UUID.randomUUID().toString();
     commandResult = new CommandResult<>();
+  }
+
+  public Command(String commandName) {
+    super();
+    this.commandName = commandName;
   }
 
   public String getCommandID() {
@@ -36,5 +43,9 @@ public abstract class Command<Result> {
 
   public CommandResult<Result> getCommandResult() {
     return commandResult;
+  }
+
+  public String getCommandName() {
+    return commandName;
   }
 }

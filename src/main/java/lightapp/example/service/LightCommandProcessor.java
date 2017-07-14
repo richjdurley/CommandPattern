@@ -32,7 +32,7 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
         synchronized (lock) {
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOnLight();
-          log.info("event --> Light was switched on");
+          log.info("Command " + command.getCommandID() + " --> Switched ON the light");
           return this.light.getLightState();
         }
       }
@@ -41,7 +41,7 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
         synchronized (lock) {
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOffLight();
-          log.info("event --> Light was switched off");
+          log.info("Command " + command.getCommandID() + " --> Switched OFF the light");
           return light.getLightState();
         }
       }
