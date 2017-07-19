@@ -5,6 +5,20 @@ public class CommandResult<R> {
   R result;
   CommandException exception;
 
+  public CommandResult() {
+    this.status = CommandStatus.ACCEPTED;
+  }
+
+  public CommandResult(R result) {
+    this.status = CommandStatus.SUCCESS;
+    this.result = result;
+  }
+
+  public CommandResult(CommandException exception) {
+    this.status = CommandStatus.FAILED;
+    this.exception = exception;
+  }
+
   public CommandStatus getStatus() {
     return status;
   }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rd.command.framework.domain.CommandException;
 import rd.command.framework.domain.CommandNotImplementedException;
+import rd.command.framework.domain.CommandResult;
 import rd.command.framework.service.CommandProcessor;
 
 import java.util.concurrent.locks.LockSupport;
@@ -26,14 +27,14 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
       Logger.getLogger(LightCommandProcessor.class.getSimpleName());
 
   @Override
-  public LightState process(LightCommand command) throws CommandException {
+  public CommandResult<LightState> process(LightCommand command) throws CommandException {
     try {
       if (command instanceof TurnLightOnCommand) {
         synchronized (lock) {
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOnLight();
           log.info("Command " + command.getCommandID() + " --> Switched ON the light");
-          return this.light.getLightState();
+          return new CommandResult<>(this.light.getLightState());
         }
       }
 
@@ -42,12 +43,12 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOffLight();
           log.info("Command " + command.getCommandID() + " --> Switched OFF the light");
-          return light.getLightState();
+          return new CommandResult<>(this.light.getLightState());
         }
       }
     } catch (LightException e) {
       log.log(Level.WARNING, "exception occurred --> ", e);
-      throw new CommandException(e);
+      return new CommandResult<>(new CommandException(e));
     }
     throw new CommandNotImplementedException(command);
   }
