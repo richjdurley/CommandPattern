@@ -1,6 +1,6 @@
 package rd.command.framework.domain;
 
-public class CommandNotImplementedException extends CommandException {
+public class CommandNotImplementedException extends RuntimeException {
   Command command;
 
   public CommandNotImplementedException(Command command) {

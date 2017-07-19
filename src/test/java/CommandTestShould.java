@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import rd.command.framework.domain.Command;
-import rd.command.framework.domain.CommandException;
+import rd.command.framework.domain.CommandFailedResult;
 import rd.command.framework.domain.CommandStatus;
 
 import static org.hamcrest.CoreMatchers.isA;
@@ -22,7 +22,7 @@ public class CommandTestShould {
   public void returnStatusSuccessOnComamndSucceeded() {
     TestCommand testCommand = new TestCommand();
     testCommand.commandSucceeded();
-    Assert.assertEquals(CommandStatus.SUCCESS, testCommand.getCommandResult().getStatus());
+    Assert.assertEquals(CommandStatus.SUCCEEDED, testCommand.getCommandResult().getStatus());
   }
 
   @Test
@@ -43,6 +43,6 @@ public class CommandTestShould {
   public void returnAnExceptionOnFailure() {
     TestCommand testCommand = new TestCommand();
     testCommand.commandFailed();
-    Assert.assertThat(testCommand.getCommandResult().getException(), isA(CommandException.class));
+    Assert.assertThat(testCommand.getCommandResult().getFailedResult(), isA(CommandFailedResult.class));
   }
 }

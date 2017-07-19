@@ -8,8 +8,6 @@ import lightapp.example.domain.command.TurnLightOffCommand;
 import lightapp.example.domain.command.TurnLightOnCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import rd.command.framework.domain.CommandException;
-import rd.command.framework.domain.CommandNotImplementedException;
 import rd.command.framework.domain.CommandResult;
 import rd.command.framework.service.CommandProcessor;
 
@@ -27,29 +25,32 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
       Logger.getLogger(LightCommandProcessor.class.getSimpleName());
 
   @Override
-  public CommandResult<LightState> process(LightCommand command) throws CommandException {
+  public CommandResult<LightState> process(LightCommand command) {
     try {
       if (command instanceof TurnLightOnCommand) {
         synchronized (lock) {
+          command.logProgress("Started to switch ON the light");
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOnLight();
+          command.commandSucceeded(light.getLightState());
           log.info("Command " + command.getCommandID() + " --> Switched ON the light");
-          return new CommandResult<>(this.light.getLightState());
         }
       }
 
       if (command instanceof TurnLightOffCommand) {
         synchronized (lock) {
+          command.logProgress("Started to switch OFF the light");
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOffLight();
           log.info("Command " + command.getCommandID() + " --> Switched OFF the light");
-          return new CommandResult<>(this.light.getLightState());
+          command.commandSucceeded(light.getLightState());
         }
       }
+
     } catch (LightException e) {
       log.log(Level.WARNING, "exception occurred --> ", e);
-      return new CommandResult<>(new CommandException(e));
+      command.commandFailed(e.getMessage());
     }
-    throw new CommandNotImplementedException(command);
+    return command.getCommandResult();
   }
 }

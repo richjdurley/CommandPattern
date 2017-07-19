@@ -1,22 +1,23 @@
 package rd.command.framework.domain;
 
+import java.util.ArrayList;
+
 public class CommandResult<R> {
   CommandStatus status;
   R result;
-  CommandException exception;
+  CommandFailedResult failedResult;
 
-  public CommandResult() {
-    this.status = CommandStatus.ACCEPTED;
-  }
+
+  public CommandResult() {}
 
   public CommandResult(R result) {
-    this.status = CommandStatus.SUCCESS;
+    this.status = CommandStatus.SUCCEEDED;
     this.result = result;
   }
 
-  public CommandResult(CommandException exception) {
+  public CommandResult(CommandFailedResult failedResult) {
     this.status = CommandStatus.FAILED;
-    this.exception = exception;
+    this.failedResult = failedResult;
   }
 
   public CommandStatus getStatus() {
@@ -27,8 +28,8 @@ public class CommandResult<R> {
     return result;
   }
 
-  public CommandException getException() {
-    return exception;
+  public CommandFailedResult getFailedResult() {
+    return failedResult;
   }
 
   public void setResult(R result) {
@@ -39,7 +40,7 @@ public class CommandResult<R> {
     this.status = status;
   }
 
-  public void setException(CommandException exception) {
-    this.exception = exception;
+  public void setFailedResult(CommandFailedResult failedResult) {
+    this.failedResult = failedResult;
   }
 }

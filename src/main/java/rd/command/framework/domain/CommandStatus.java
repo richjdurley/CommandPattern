@@ -2,6 +2,7 @@ package rd.command.framework.domain;
 
 public enum CommandStatus {
   ACCEPTED,
-  SUCCESS,
+  INPROGRESS,
+  SUCCEEDED,
   FAILED
 }

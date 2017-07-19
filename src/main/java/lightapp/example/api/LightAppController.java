@@ -1,5 +1,6 @@
 package lightapp.example.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lightapp.example.api.request.CommandRequest;
 import lightapp.example.domain.LightState;
 import lightapp.example.domain.command.LightCommand;
