@@ -1,6 +1,6 @@
 package lightapp.example.api;
 
-import lightapp.example.api.request.CommandRequest;
+import rd.command.framework.domain.CommandRequest;
 import lightapp.example.domain.LightState;
 import lightapp.example.domain.command.LightCommand;
 import lightapp.example.service.LightCommandProcessor;
@@ -15,7 +15,7 @@ public class LightAppController {
 
   @Autowired LightCommandProcessor lightCommandProcessorService;
 
-  @RequestMapping(value = "/light", method = RequestMethod.POST)
+  @RequestMapping(value = "/light/on", method = RequestMethod.POST)
   public @ResponseBody Callable<CommandResult<LightState>> lightCommand(
       @RequestBody CommandRequest command) {
     return () ->

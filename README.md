@@ -1,9 +1,9 @@
 Command Pattern And Command Sourcing
 Rich Durley @ June 2017
 
-What is a command.
+What is a commandRequest.
 
-    A command is used to decouple a client that invokes an action from the one that needs to perform it e.g. client -> turnOnLightCmd -> Light.PressSwitch()
+    A commandRequest is used to decouple a client that invokes an action from the one that needs to perform it e.g. client -> turnOnLightCmd -> Light.PressSwitch()
 
 Attributes of a Command
 
@@ -23,7 +23,7 @@ How is this different to an event?
 
     Events originate inside the service boundary
 
-    They are created after a change in state e.g. valid state-> command -> new valid state change -> event
+    They are created after a change in state e.g. valid state-> commandRequest -> new valid state change -> event
 
     They are immutable they represent something that has happened
 
@@ -35,7 +35,7 @@ How is this different to an event?
 
     They cannot guarantee transactional semantics as a failed event process cannot be rolled back the domain to the state before the event was published
 
-When to use a command
+When to use a commandRequest
 
     Use when a client does not not need to be aware of the implementation of an object's processing, only on the success or failure of an action on that object
 
@@ -43,17 +43,17 @@ When to use a command
 
     When transactional semantics are required
 
-What is command sourcing
+What is commandRequest sourcing
 
     Command sourcing is when a history of executed commands is stored, and that these commands can be replayed to reconstitute a domain
 
-    An important feature of command sourcing is that command replay processing is that commands should be idempotent and have uniquely identifiable order
+    An important feature of commandRequest sourcing is that commandRequest replay processing is that commands should be idempotent and have uniquely identifiable order
 
     As commands can hold a history of state (momentos) that enables the rebuilding part of a domain in isolation of other internal/external services
 
     In contrast event sourcing implementations need to capture and replay the history of all events from a know snapshot to reconstitute even part of a domain
 
-When to use command sourcing
+When to use commandRequest sourcing
 
     When a history of state is required
 
@@ -82,16 +82,16 @@ When to use command sourcing
 
 
 
-    Client creates the command
+    Client creates the commandRequest
 
-    A command factory accepts the command
+    A commandRequest factory accepts the commandRequest
 
-        the command is validated
+        the commandRequest is validated
 
         the factory delegates processing to a task processor <in our example a FutureTask>
 
-        task processor does the processing and updates the status of the command
+        task processor does the processing and updates the status of the commandRequest
 
-    Client checks the status of the command and retrieves the result
+    Client checks the status of the commandRequest and retrieves the result
 
 
