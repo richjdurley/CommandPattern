@@ -1,9 +1,9 @@
 package rd.command.framework.domain;
 
 public class CommandNotImplementedException extends RuntimeException {
-  CommandRequest commandRequest;
+  Command command;
 
-  public CommandNotImplementedException(CommandRequest commandRequest) {
-    this.commandRequest = commandRequest;
+  public CommandNotImplementedException(Command command) {
+    this.command = command;
   }
 }

@@ -8,7 +8,7 @@ public abstract class Command<Result> {
   String commandID;
   String commandName;
 
-  CommandResult<Result> commandResult;
+  CommandResponse<Result> commandResult;
 
   public class CommandProgress {
     Long timestamp;
@@ -43,51 +43,52 @@ public abstract class Command<Result> {
 
   public Command() {
     this.commandID = UUID.randomUUID().toString();
-    commandResult = new CommandResult<>();
+    commandResult = new CommandResponse<>();
     commandResult.setStatus(CommandStatus.ACCEPTED);
-    logProgress(CommandStatus.ACCEPTED);
+    logMomento(CommandStatus.ACCEPTED);
   }
 
   public Command(String commandName) {
     super();
     this.commandName = commandName;
     commandResult.setStatus(CommandStatus.ACCEPTED);
-    logProgress(CommandStatus.ACCEPTED);
+    logMomento(CommandStatus.ACCEPTED);
   }
 
   public String getCommandID() {
     return commandID;
   }
 
-  public void commandSucceeded() {
-    commandSucceeded(null);
+  public void setSucceeded() {
+    setSucceeded(null);
   }
 
-  public void commandSucceeded(Result result) {
+  public void setSucceeded(Result result) {
     commandResult.setStatus(CommandStatus.SUCCEEDED);
     commandResult.setResult(result);
-    logProgress(CommandStatus.SUCCEEDED);
+    logMomento(CommandStatus.SUCCEEDED);
   }
 
-  public void commandFailed() {
-    commandFailed("UNDEFINED");
+  public void setFailed() {
+    setFailed("UNDEFINED");
   }
 
-  public void commandFailed(String failureReason) {
+  public void setFailed(String failureReason) {
     commandResult.setStatus(CommandStatus.FAILED);
     commandResult.setFailedResult(new CommandFailedResult(failureReason));
-    logProgress(CommandStatus.FAILED);
+    logMomento(CommandStatus.FAILED);
   }
 
-  public void logProgress(CommandStatus commandStatus) {
+  private void logMomento(CommandStatus commandStatus) {
     progressLog.add(new CommandProgress(commandStatus));
   }
 
-  public void logProgress(Object someProgress) {
-    progressLog.add(new CommandProgress(CommandStatus.INPROGRESS, someProgress));
+  public void logMomento(Object progress) {
+    if (this.commandResult.getStatus().equals(CommandStatus.INPROGRESS))
+      progressLog.add(new CommandProgress(CommandStatus.INPROGRESS, progress));
   }
 
-  public CommandResult<Result> getCommandResult() {
+  public CommandResponse<Result> getCommandResult() {
     return commandResult;
   }
 

@@ -2,8 +2,7 @@ package rd.command.framework.service;
 
 import rd.command.framework.domain.Command;
 import rd.command.framework.domain.CommandNotImplementedException;
-import rd.command.framework.domain.CommandRequest;
-import rd.command.framework.domain.CommandResult;
+import rd.command.framework.domain.CommandResponse;
 
 import java.util.concurrent.Future;
 
@@ -15,13 +14,12 @@ public class CommandExecutor<C extends Command<Result>, Result> {
     this.commandProcessor = commandProcessor;
   }
 
-  Future<CommandResult<Result>> execute(CommandRequest<C> commandRequest) {
+  public Future<CommandResponse<Result>> execute(C command) {
     try {
-      C command = (C) Class.forName(commandRequest.getCommandName()).newInstance();
       return commandProcessor.accept(command);
     } catch (Exception e) {
 
     }
-    throw new CommandNotImplementedException(commandRequest);
+    throw new CommandNotImplementedException(command);
   }
 }

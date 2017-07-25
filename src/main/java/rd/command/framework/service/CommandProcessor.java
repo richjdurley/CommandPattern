@@ -1,8 +1,8 @@
 package rd.command.framework.service;
 
 import rd.command.framework.domain.Command;
-import rd.command.framework.domain.CommandResult;
+import rd.command.framework.domain.CommandResponse;
 
 public interface CommandProcessor<C extends Command<Result>, Result> {
-  CommandResult<Result> process(C command);
+  CommandResponse<Result> process(C command);
 }

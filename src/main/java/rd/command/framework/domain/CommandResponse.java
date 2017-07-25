@@ -1,21 +1,19 @@
 package rd.command.framework.domain;
 
-import java.util.ArrayList;
-
-public class CommandResult<R> {
+public class CommandResponse<R> {
   CommandStatus status;
   R result;
   CommandFailedResult failedResult;
 
 
-  public CommandResult() {}
+  public CommandResponse() {}
 
-  public CommandResult(R result) {
+  public CommandResponse(R result) {
     this.status = CommandStatus.SUCCEEDED;
     this.result = result;
   }
 
-  public CommandResult(CommandFailedResult failedResult) {
+  public CommandResponse(CommandFailedResult failedResult) {
     this.status = CommandStatus.FAILED;
     this.failedResult = failedResult;
   }

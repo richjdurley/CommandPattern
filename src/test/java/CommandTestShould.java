@@ -21,28 +21,30 @@ public class CommandTestShould {
   @Test
   public void returnStatusSuccessOnComamndSucceeded() {
     TestCommand testCommand = new TestCommand();
-    testCommand.commandSucceeded();
+    testCommand.setSucceeded();
     Assert.assertEquals(CommandStatus.SUCCEEDED, testCommand.getCommandResult().getStatus());
   }
 
   @Test
   public void returnStatusFailOnCommandFailure() {
     TestCommand testCommand = new TestCommand();
-    testCommand.commandFailed();
+    testCommand.setFailed();
     Assert.assertEquals(CommandStatus.FAILED, testCommand.getCommandResult().getStatus());
   }
 
   @Test
   public void returnAResultValueOnCommandSucceeded() {
     TestCommand testCommand = new TestCommand();
-    testCommand.commandSucceeded(RESULT_VALUE);
+    testCommand.setSucceeded(RESULT_VALUE);
     Assert.assertEquals(RESULT_VALUE, testCommand.getCommandResult().getResult());
   }
 
   @Test
   public void returnAnExceptionOnFailure() {
     TestCommand testCommand = new TestCommand();
-    testCommand.commandFailed();
+    testCommand.setFailed();
     Assert.assertThat(testCommand.getCommandResult().getFailedResult(), isA(CommandFailedResult.class));
   }
+
+
 }
