@@ -1,19 +1,19 @@
 package rd.command.framework.domain;
 
-public class CommandFailedResult {
+public class FailedResult {
 
   String message;
   Throwable cause;
 
-  public CommandFailedResult() {
+  public FailedResult() {
     this.message = "Command failedResult occurred";
   }
 
-  public CommandFailedResult(String message) {
+  public FailedResult(String message) {
     this.message = message;
   }
 
-  public CommandFailedResult(String message, Throwable cause) {
+  public FailedResult(String message, Throwable cause) {
     this.message=message;
     this.cause = cause;
   }

@@ -4,11 +4,11 @@ import lightapp.example.domain.Light;
 import lightapp.example.domain.LightState;
 import lightapp.example.domain.command.LightCommand;
 import lightapp.example.domain.command.LightException;
-import lightapp.example.domain.command.TurnLightOffCommand;
-import lightapp.example.domain.command.TurnLightOnCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import rd.command.framework.domain.CommandResponse;
+import rd.command.framework.domain.CommandNotImplementedException;
+import rd.command.framework.domain.CommandResult;
+import rd.command.framework.domain.FailedResult;
 import rd.command.framework.service.CommandProcessor;
 
 import java.util.concurrent.locks.LockSupport;
@@ -25,32 +25,31 @@ public class LightCommandProcessor implements CommandProcessor<LightCommand, Lig
       Logger.getLogger(LightCommandProcessor.class.getSimpleName());
 
   @Override
-  public CommandResponse<LightState> process(LightCommand command) {
+  public CommandResult<LightState> process(LightCommand command) {
     try {
-      if (command instanceof TurnLightOnCommand) {
+      if (command.getCommandName().equals(LightCommand.TURN_ON_COMMAND_NAME)) {
         synchronized (lock) {
-          command.logMomento("Started to switch ON the light");
+          log.info("Started to switch ON the light");
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOnLight();
-          command.setSucceeded(light.getLightState());
-          log.info("Command " + command.getCommandID() + " --> Switched ON the light");
+          return new CommandResult<>(light.getLightState());
         }
       }
 
-      if (command instanceof TurnLightOffCommand) {
+      if (command.getCommandName().equals(LightCommand.TURN_OFF_COMMAND_NAME)) {
         synchronized (lock) {
-          command.logMomento("Started to switch OFF the light");
+          log.info("Started to switch OFF the light");
           LockSupport.parkNanos(1000 * 1000 * 1000);
           light.turnOffLight();
-          log.info("Command " + command.getCommandID() + " --> Switched OFF the light");
-          command.setSucceeded(light.getLightState());
+          return new CommandResult<>(light.getLightState());
         }
       }
+
+      throw new CommandNotImplementedException(command);
 
     } catch (LightException e) {
       log.log(Level.WARNING, "exception occurred --> ", e);
-      command.setFailed(e.getMessage());
+      return new CommandResult<>(new FailedResult(e.getMessage()));
     }
-    return command.getCommandResult();
   }
 }
