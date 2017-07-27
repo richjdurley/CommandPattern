@@ -13,10 +13,12 @@ public class Command<Data> {
   }
 
   public Command(String commandName) {
+    commandID = UUID.randomUUID().toString();
     this.commandName = commandName;
   }
 
   public Command(String commandName, Data commandData) {
+    commandID = UUID.randomUUID().toString();
     this.commandName = commandName;
     this.commandData = commandData;
   }
