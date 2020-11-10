@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @EnableAutoConfiguration
 public class LightApp {
-  public static void main(String[] args) {
-    SpringApplication.run(LightApp.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(LightApp.class, args);
+    }
 }
