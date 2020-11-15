@@ -1,46 +1,83 @@
 package rd.command.framework.domain;
 
-import java.util.Date;
-import java.util.UUID;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-public class Command<Data> {
+/**
+ * Abstract Command to be extended by user defined Items
+ *
+ * @author Xio
+ */
+public class Command<P> {
 
-    String commandID;
-    String commandName;
-    Data commandData;
-    Date createdTimestamp;
+    public static final int COMMAND_EXPIRY_MILLISECONDS = 3000;
+    private final String commandName;
+    private final P commandPayload;
+    private final String commandUUID;
+    private final long commandTimestamp;
+    private final long commandExpiryMilliseconds;
 
-    public Command() {
-        commandID = UUID.randomUUID().toString();
-        createdTimestamp = new Date(System.currentTimeMillis());
-    }
-
-    public Command(String commandName) {
-        commandID = UUID.randomUUID().toString();
+    protected Command(String commandName, P commandPayload, String commandUUID, long commandTimestamp, long commandExpiryMilliseconds) {
         this.commandName = commandName;
-        createdTimestamp = new Date(System.currentTimeMillis());
+        this.commandPayload = commandPayload;
+        this.commandUUID = commandUUID;
+        this.commandTimestamp = commandTimestamp;
+        this.commandExpiryMilliseconds = commandExpiryMilliseconds;
     }
 
-    public Command(String commandName, Data commandData) {
-        commandID = UUID.randomUUID().toString();
-        this.commandName = commandName;
-        this.commandData = commandData;
-        createdTimestamp = new Date(System.currentTimeMillis());
+    public long commandTimestamp() {
+        return this.commandTimestamp;
     }
 
-    public String getCommandID() {
-        return commandID;
+    public boolean expiresAfter() {
+        if (commandExpiryMilliseconds > 0) {
+            if (this.commandTimestamp() + (commandExpiryMilliseconds * 1000) > System.currentTimeMillis())
+                return true;
+            else
+                return false;
+        } else
+            return true;
+    }
+
+    public boolean readyForHouseKeeping(long maxTTLSeconds) {
+        if (this.commandTimestamp() + (maxTTLSeconds * 1000) > System.currentTimeMillis())
+            return true;
+        else
+            return false;
     }
 
     public String getCommandName() {
         return commandName;
     }
 
-    public Data getCommandData() {
-        return commandData;
+    public P getCommandPayload() {
+        return commandPayload;
     }
 
-    public Date getCreatedTimestamp() {
-        return createdTimestamp;
+    public String getCommandUUID() {
+        return commandUUID;
+    }
+
+    public long getCommandTimestamp() {
+        return commandTimestamp;
+    }
+
+    public long getCommandExpiryMilliseconds() {
+        return commandExpiryMilliseconds;
+    }
+
+    public Object getPayloadFieldValue(String fieldname) {
+        Method f = null;
+        Object toreturn = null;
+        try {
+            f = this.commandPayload.getClass()
+                    .getMethod("get" + fieldname.substring(0, 1).toUpperCase() + fieldname.substring(1),
+                            null);
+            toreturn = f.invoke(this.commandPayload, null);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+        } catch (IllegalAccessException e3) {
+        }
+
+        return toreturn;
     }
 }

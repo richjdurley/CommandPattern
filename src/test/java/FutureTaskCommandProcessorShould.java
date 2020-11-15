@@ -3,6 +3,7 @@ import org.junit.Test;
 import rd.command.framework.CommandHandler;
 import rd.command.framework.FutureTaskCommandHandler;
 import rd.command.framework.domain.Command;
+import rd.command.framework.domain.CommandBuilder;
 import rd.command.framework.domain.CommandResult;
 import rd.command.framework.domain.FailedResult;
 
@@ -16,13 +17,13 @@ public class FutureTaskCommandProcessorShould {
 
     public static final String RESULT = "HELLO";
     public static final String TEST_FAILURE_REASON = "TEST FAILURE REASON";
-    FutureTaskCommandHandler<TestCommand, String> futureCommandProcessor =
+    FutureTaskCommandHandler<String, String> futureCommandProcessor =
             new FutureTaskCommandHandler<>();
 
     @Test
     public void shouldSuccessfullyProcessACommand() throws Exception {
         //Given
-        TestCommand testCommand = new TestCommand();
+        Command<String> testCommand = CommandBuilder.<String>builder().withCommandName("HELLO").build();
 
         //When
         Future<CommandResult<String>> commandResultFuture =
@@ -36,7 +37,7 @@ public class FutureTaskCommandProcessorShould {
     @Test
     public void shouldFailToProcessACommand() throws Exception {
         //Given
-        TestCommand testCommand = new TestCommand();
+        Command<String> testCommand = CommandBuilder.<String>builder().withCommandName("HELLO").build();
 
         //When
         Future<CommandResult<String>> commandResultFuture =
@@ -48,19 +49,16 @@ public class FutureTaskCommandProcessorShould {
                 commandResultFuture.get().getFailedResult().getMessage(), is(TEST_FAILURE_REASON));
     }
 
-    public class TestCommand extends Command<String> {
-    }
-
-    public class SuccessfulCommandProcessor implements CommandHandler<TestCommand, String> {
+    public class SuccessfulCommandProcessor implements CommandHandler<String, String> {
         @Override
-        public CommandResult<String> handle(TestCommand command) {
+        public CommandResult<String> handle(Command<String> command) {
             return new CommandResult<String>(RESULT);
         }
     }
 
-    public class FailedCommandProcessor implements CommandHandler<TestCommand, String> {
+    public class FailedCommandProcessor implements CommandHandler<String, String> {
         @Override
-        public CommandResult<String> handle(TestCommand command) {
+        public CommandResult<String> handle(Command<String> command) {
             return new CommandResult<>(new FailedResult(TEST_FAILURE_REASON));
         }
     }

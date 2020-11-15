@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
-public class LightCommandHandler implements CommandHandler<Command, LightState> {
+public class LightCommandHandler implements CommandHandler<String, LightState> {
 
     @Autowired
     private Light light;
@@ -28,8 +28,7 @@ public class LightCommandHandler implements CommandHandler<Command, LightState> 
         this.light = light;
     }
 
-    @Override
-    public CommandResult<LightState> handle(Command command) {
+    public CommandResult<LightState> handle(Command<String> command) {
         try {
             if (command.getCommandName().equals(LightCommandNames.TURN_ON_COMMAND_NAME)) {
                 log.info("Started to switch ON the light");

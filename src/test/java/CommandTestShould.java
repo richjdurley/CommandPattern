@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import rd.command.framework.domain.Command;
+import rd.command.framework.domain.CommandBuilder;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -11,24 +12,21 @@ public class CommandTestShould {
 
     @Test
     public void haveUUIDAndTimeStampOnNewCommand() {
-        Command testCommand = new Command();
-        Assert.assertNotNull(testCommand.getCommandID());
-        Assert.assertNotNull(testCommand.getCreatedTimestamp());
+        Command testCommand = CommandBuilder.builder().build();
+        Assert.assertNotNull(testCommand.getCommandUUID());
+        Assert.assertTrue(testCommand.getCommandTimestamp()>0);
     }
 
     @Test
-    public void haveACommandNameAndUUIDOnNewCommandWithName() {
-        Command testCommand = new Command(NEW_COMMAND);
+    public void haveACommandWithNewCommandName() {
+        Command testCommand = CommandBuilder.builder().withCommandName(NEW_COMMAND).build();
         Assert.assertThat(testCommand.getCommandName(), is(NEW_COMMAND));
-        Assert.assertNotNull(testCommand.getCommandID());
     }
 
     @Test
-    public void haveACommandNameAndDataAndUUIDOnNewCommandWithNameAndData() {
-        Command<String> testCommand = new Command<>(NEW_COMMAND, COMMAND_DATA);
-        Assert.assertThat(testCommand.getCommandName(), is(NEW_COMMAND));
-        Assert.assertThat(testCommand.getCommandData(), is(COMMAND_DATA));
-        Assert.assertNotNull(testCommand.getCommandID());
+    public void haveACommandWithData() {
+        Command<String> testCommand = CommandBuilder.<String>builder().withCommandPayload(COMMAND_DATA).build();
+        Assert.assertThat(testCommand.getCommandPayload(), is(COMMAND_DATA));
     }
 
 }
