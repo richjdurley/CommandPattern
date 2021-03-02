@@ -5,10 +5,7 @@ import lightapp.example.domain.LightState;
 import lightapp.example.domain.command.LightCommandNames;
 import org.junit.Assert;
 import org.junit.Test;
-import rd.command.framework.domain.Command;
 import rd.command.framework.domain.CommandBuilder;
-
-import java.util.LinkedList;
 
 public class LightCommandHandlerTest {
 
@@ -16,16 +13,18 @@ public class LightCommandHandlerTest {
     @Test
     public void should_switch_on_light() {
         Light light = new Light(LightState.OFF);
-        LightCommandHandler lightCommandHandler = new LightCommandHandler(light);
-        lightCommandHandler.handle(CommandBuilder.<String>builder().withCommandName(LightCommandNames.TURN_ON_COMMAND_NAME).build());
+        LightAdaptor lightAdaptor = new LightAdaptor();
+        LightCommandHandler lightCommandHandler = new LightCommandHandler(lightAdaptor);
+        lightCommandHandler.handle(CommandBuilder.builder().withTargetDeviceName(LightCommandNames.TURN_ON_COMMAND_NAME).build());
         Assert.assertTrue(light.isOn());
     }
 
     @Test
     public void should_switch_off_light() {
         Light light = new Light(LightState.ON);
-        LightCommandHandler lightCommandHandler = new LightCommandHandler(light);
-        lightCommandHandler.handle(CommandBuilder.<String>builder().withCommandName(LightCommandNames.TURN_OFF_COMMAND_NAME).build());
+        LightAdaptor lightAdaptor = new LightAdaptor();
+        LightCommandHandler lightCommandHandler = new LightCommandHandler(lightAdaptor);
+        lightCommandHandler.handle(CommandBuilder.builder().withCommandActionName(LightCommandNames.TURN_OFF_COMMAND_NAME).build());
         Assert.assertTrue(light.isOff());
     }
 

@@ -3,6 +3,8 @@ package rd.command.framework;
 import rd.command.framework.domain.Command;
 import rd.command.framework.domain.CommandResult;
 
+import java.util.concurrent.Callable;
+
 public interface CommandHandler<P, Result> {
-    CommandResult<Result> handle(Command<P> command);
+    Callable<Result> handle(Command<P> command);
 }

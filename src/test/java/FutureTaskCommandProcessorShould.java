@@ -15,6 +15,7 @@ import static rd.command.framework.domain.CommandStatus.SUCCEEDED;
 
 public class FutureTaskCommandProcessorShould {
 
+    /*
     public static final String RESULT = "HELLO";
     public static final String TEST_FAILURE_REASON = "TEST FAILURE REASON";
     FutureTaskCommandHandler<String, String> futureCommandProcessor =
@@ -51,15 +52,16 @@ public class FutureTaskCommandProcessorShould {
 
     public class SuccessfulCommandProcessor implements CommandHandler<String, String> {
         @Override
-        public CommandResult<String> handle(Command<String> command) {
-            return new CommandResult<String>(RESULT);
+        public String handle(Command<String> command) {
+            return RESULT;
         }
     }
 
     public class FailedCommandProcessor implements CommandHandler<String, String> {
         @Override
-        public CommandResult<String> handle(Command<String> command) {
-            return new CommandResult<>(new FailedResult(TEST_FAILURE_REASON));
+        public String handle(Command<String> command) {
+            return new FailedResult(TEST_FAILURE_REASON);
         }
     }
+    */
 }

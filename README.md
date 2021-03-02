@@ -1,16 +1,28 @@
-#Command Pattern And Command Sourcing
-###Rich Durley @ June 2017
+#Command Pattern example application in Java Microservices
+###Rich Durley
 
-###What is a command
+In this article we introduce how the command pattern can be used in Microservices and how it differs from events. Commands should be used in a domain that requires extensible behaviour without knowing ahead what it will be.
+You will therefore often see it used in frameworks; an obvious historical example being Java Swing Action and ActionHandler classes.
 
-A command is used to decouple a client that requests an action from the handler that invokes the action on a domain resource
+In this sense we should cautiously apply the use of Commands in our APIs to those domains that require extensibility and/or frameworks on which concrete implementations' built.  A contained domain would be better represented by API endpoints with specific signatures.
 
-i.e. client -> command -> command handler -> stateOject.doSomething
+###What is a command ?
+
+A command is used to decouple a client that requests an action from a handler that invokes the action on a domain resource(s) that may result in changing the state of a resource. Different
+
+```client -> command -> abstract command handler -> concrete command handler -> changeState.of(stateObjects...)```
+
 e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn()
+
+Command Query Responsibility Segregation (CQRS) extends this pattern to publish state change events form building a read optimised view.  An event publisher could publish to an internal event loop, external message broker or as a result of database change data capture 
+
+```client -> command -> abstract command handler -> concrete command handler -> changeState.of(stateObjects...) -> event -> event publisher |-> event subscriber -> updateReadModelView```
+  
+e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn() -> LightTurnedOnEvent
 
 ###Attributes of a Command
 
-    Commands are composable e.g. ReplaceBulbCmd = TurnOffLight + RemoveBulb + AddBulb + TurnOnLight
+    Commands can be aggregated into higher level commands e.g. client -> TurnOffGroupCommand(groupName) -> LightGroupHandler -> forEachLight(ingroup).turnOff() 
 
     Commands can fail if the state of the object they are invoking is invalid
 

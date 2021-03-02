@@ -10,6 +10,7 @@ import java.util.concurrent.FutureTask;
 
 public class FutureTaskCommandHandler<P, Result> {
 
+    /*
     ExecutorService executor;
 
     public FutureTaskCommandHandler() {
@@ -27,4 +28,6 @@ public class FutureTaskCommandHandler<P, Result> {
         executor.submit(task);
         return task;
     }
+    */
+
 }

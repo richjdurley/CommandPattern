@@ -10,15 +10,18 @@ import java.lang.reflect.Method;
  */
 public class Command<P> {
 
-    public static final int COMMAND_EXPIRY_MILLISECONDS = 3000;
-    private final String commandName;
+    public static final long DEFAULT_EXPIRY_MILLISECONDS = 1000;
+    public static final long NO_EXPIRY = 0;
+    private final String targetDeviceName;
+    private final String commandActionName;
     private final P commandPayload;
     private final String commandUUID;
     private final long commandTimestamp;
     private final long commandExpiryMilliseconds;
 
-    protected Command(String commandName, P commandPayload, String commandUUID, long commandTimestamp, long commandExpiryMilliseconds) {
-        this.commandName = commandName;
+    protected Command(String targetDeviceName, String commandActionName, P commandPayload, String commandUUID, long commandTimestamp, long commandExpiryMilliseconds) {
+        this.targetDeviceName = targetDeviceName;
+        this.commandActionName = commandActionName;
         this.commandPayload = commandPayload;
         this.commandUUID = commandUUID;
         this.commandTimestamp = commandTimestamp;
@@ -29,25 +32,22 @@ public class Command<P> {
         return this.commandTimestamp;
     }
 
-    public boolean expiresAfter() {
+    public boolean isActive() {
         if (commandExpiryMilliseconds > 0) {
-            if (this.commandTimestamp() + (commandExpiryMilliseconds * 1000) > System.currentTimeMillis())
-                return true;
-            else
+            if (this.commandTimestamp() + (commandExpiryMilliseconds) <= System.currentTimeMillis())
                 return false;
+            else
+                return true;
         } else
             return true;
     }
 
-    public boolean readyForHouseKeeping(long maxTTLSeconds) {
-        if (this.commandTimestamp() + (maxTTLSeconds * 1000) > System.currentTimeMillis())
-            return true;
-        else
-            return false;
+    public String getTargetDeviceName() {
+        return targetDeviceName;
     }
 
-    public String getCommandName() {
-        return commandName;
+    public String getCommandActionName() {
+        return commandActionName;
     }
 
     public P getCommandPayload() {

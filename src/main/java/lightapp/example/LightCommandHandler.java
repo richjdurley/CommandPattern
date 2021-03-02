@@ -8,45 +8,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rd.command.framework.CommandHandler;
 import rd.command.framework.domain.Command;
-import rd.command.framework.domain.CommandNotImplementedException;
-import rd.command.framework.domain.CommandResult;
-import rd.command.framework.domain.FailedResult;
 
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
-public class LightCommandHandler implements CommandHandler<String, LightState> {
-
-    @Autowired
-    private Light light;
+public class LightCommandHandler implements CommandHandler<Object, LightState> {
 
     private java.util.logging.Logger log =
             Logger.getLogger(LightCommandHandler.class.getSimpleName());
 
-    public LightCommandHandler(Light light) {
-        this.light = light;
+    @Autowired
+    LightAdaptor lightAdaptor;
+
+    public LightCommandHandler(LightAdaptor lightAdaptor) {
+        this.lightAdaptor = lightAdaptor;
     }
 
-    public CommandResult<LightState> handle(Command<String> command) {
+    public Callable<LightState> handle(Command<Object> command) {
         try {
-            if (command.getCommandName().equals(LightCommandNames.TURN_ON_COMMAND_NAME)) {
+            if (command.getCommandActionName().equals(LightCommandNames.TURN_ON_COMMAND_NAME)) {
                 log.info("Started to switch ON the light");
-                light.turnOnLight();
-                return new CommandResult<>(light.getLightState());
+                lightAdaptor.turnOnLight(command.getTargetDeviceName());
             }
 
-            if (command.getCommandName().equals(LightCommandNames.TURN_OFF_COMMAND_NAME)) {
+            if (command.getCommandActionName().equals(LightCommandNames.TURN_OFF_COMMAND_NAME)) {
                 log.info("Started to switch OFF the light");
-                light.turnOffLight();
-                return new CommandResult<>(light.getLightState());
+                lightAdaptor.turnOffLight(command.getTargetDeviceName());
             }
 
-            throw new CommandNotImplementedException(command);
+            return ()->lightAdaptor.getLightState(command.getTargetDeviceName());
+
 
         } catch (LightException e) {
             log.log(Level.WARNING, "exception occurred --> ", e);
-            return new CommandResult<>(new FailedResult(e.getMessage()));
+            throw e;
         }
     }
 }
