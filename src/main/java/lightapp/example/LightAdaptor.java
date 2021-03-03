@@ -1,17 +1,20 @@
 package lightapp.example;
 
 import lightapp.example.domain.LightState;
+import org.springframework.stereotype.Service;
+import rd.command.framework.DeviceAdaptor;
+import rd.command.framework.domain.Command;
 
-public class LightAdaptor {
-    public void turnOnLight(String targetDeviceName) {
+import java.util.concurrent.Callable;
 
-    }
-
-    public void turnOffLight(String targetDeviceName) {
-
-    }
-
-    public LightState getLightState(String targetDeviceName) {
-        return null;
+@Service
+public class LightAdaptor implements DeviceAdaptor<Object, LightState> {
+    @Override
+    public Callable<LightState> action(Command<Object> command) {
+        return () -> {
+            // Perform some computation
+            Thread.sleep(1000);
+            return LightState.ON;
+        };
     }
 }

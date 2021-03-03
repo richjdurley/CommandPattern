@@ -27,18 +27,17 @@ public class LightCommandHandler implements CommandHandler<Object, LightState> {
     }
 
     public Callable<LightState> handle(Command<Object> command) {
+        boolean valid=false;
         try {
             if (command.getCommandActionName().equals(LightCommandNames.TURN_ON_COMMAND_NAME)) {
-                log.info("Started to switch ON the light");
-                lightAdaptor.turnOnLight(command.getTargetDeviceName());
+                log.info("Valid command to switch ON the light");
             }
 
             if (command.getCommandActionName().equals(LightCommandNames.TURN_OFF_COMMAND_NAME)) {
-                log.info("Started to switch OFF the light");
-                lightAdaptor.turnOffLight(command.getTargetDeviceName());
+                log.info("Valid command to switch OFF the light");
             }
 
-            return ()->lightAdaptor.getLightState(command.getTargetDeviceName());
+            return lightAdaptor.action(command);
 
 
         } catch (LightException e) {

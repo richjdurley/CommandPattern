@@ -11,15 +11,16 @@ import rd.command.framework.domain.CommandBuilder;
 import java.util.concurrent.Callable;
 
 @RestController
+@RequestMapping(value = "/device")
 public class LightDeviceController implements CommandController<Object, LightState> {
 
     @Autowired
     LightCommandHandler lightCommandHandler;
 
     @Override
-    @RequestMapping(value = "/{lightname}/{lightcommandname}", method = RequestMethod.POST)
-    public Callable<LightState> handle(String deviceName, String commandActionName) {
-        Command<Object> command = CommandBuilder.builder().withTargetDeviceName(deviceName).withCommandActionName(commandActionName).build();
+    @RequestMapping(value = "/{devicename}/{lightcommandname}", method = RequestMethod.POST)
+    public Callable<LightState> handle(@PathVariable String devicename, @PathVariable String lightcommandname) {
+        Command<Object> command = CommandBuilder.builder().withTargetDeviceName(devicename).withCommandActionName(lightcommandname).build();
         return lightCommandHandler.handle(command);
     }
 
