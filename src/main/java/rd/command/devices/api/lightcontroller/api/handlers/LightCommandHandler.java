@@ -1,9 +1,9 @@
-package lightapp.example;
+package rd.command.devices.api.lightcontroller.api.handlers;
 
-import lightapp.example.domain.Light;
-import lightapp.example.domain.LightState;
-import lightapp.example.domain.command.LightCommandNames;
-import lightapp.example.domain.command.LightException;
+import rd.command.devices.api.lightcontroller.adaptor.LightAdaptor;
+import rd.command.devices.api.lightcontroller.domain.LightState;
+import rd.command.devices.api.lightcontroller.domain.command.LightCommandNames;
+import rd.command.devices.api.lightcontroller.domain.command.LightException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rd.command.framework.CommandHandler;

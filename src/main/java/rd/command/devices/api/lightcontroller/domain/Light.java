@@ -1,6 +1,6 @@
-package lightapp.example.domain;
+package rd.command.devices.api.lightcontroller.domain;
 
-import lightapp.example.domain.command.LightException;
+import rd.command.devices.api.lightcontroller.domain.command.LightException;
 import org.springframework.stereotype.Component;
 
 @Component

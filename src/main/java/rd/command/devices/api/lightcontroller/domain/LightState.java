@@ -1,4 +1,4 @@
-package lightapp.example.domain;
+package rd.command.devices.api.lightcontroller.domain;
 
 public enum LightState {
     ON,

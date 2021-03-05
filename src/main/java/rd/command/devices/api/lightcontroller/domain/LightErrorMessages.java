@@ -1,4 +1,4 @@
-package lightapp.example.domain;
+package rd.command.devices.api.lightcontroller.domain;
 
 public class LightErrorMessages {
     public static final String LIGHT_ALREADY_ON =

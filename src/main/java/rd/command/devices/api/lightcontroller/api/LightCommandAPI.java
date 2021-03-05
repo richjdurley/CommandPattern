@@ -1,7 +1,7 @@
-package lightapp.example.api;
+package rd.command.devices.api.lightcontroller.api;
 
-import lightapp.example.LightCommandHandler;
-import lightapp.example.domain.LightState;
+import rd.command.devices.api.lightcontroller.api.handlers.LightCommandHandler;
+import rd.command.devices.api.lightcontroller.domain.LightState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import rd.command.framework.CommandController;
@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
 
 @RestController
 @RequestMapping(value = "/device")
-public class LightDeviceController implements CommandController<Object, LightState> {
+public class LightCommandAPI implements CommandController<Object, LightState> {
 
     @Autowired
     LightCommandHandler lightCommandHandler;
