@@ -14,7 +14,7 @@ public class CommandTestShould {
     public void haveUUIDAndTimeStampOnNewCommand() {
         Command testCommand = CommandBuilder.builder().build();
         Assert.assertNotNull(testCommand.getCommandUUID());
-        Assert.assertTrue(testCommand.getCommandTimestamp()>0);
+        Assert.assertTrue(testCommand.getCommandTimestamp() > 0);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class CommandTestShould {
     public void beActiveBelowDefaultExpiryOf1000Milliseconds() throws InterruptedException {
         Command testActiveCommand = CommandBuilder.builder().withTargetDeviceName(NEW_COMMAND).build();
         Thread.sleep(500);
-        Assert.assertTrue(testActiveCommand.getCommandExpiryMilliseconds()==Command.DEFAULT_EXPIRY_MILLISECONDS);
+        Assert.assertTrue(testActiveCommand.getCommandExpiryMilliseconds() == Command.DEFAULT_EXPIRY_MILLISECONDS);
         Assert.assertTrue(testActiveCommand.isActive());
     }
 
@@ -48,18 +48,16 @@ public class CommandTestShould {
     public void notExpireWhenSetToExpiryOfZeroMilliseconds() throws InterruptedException {
         Command testActiveCommand = CommandBuilder.builder().withTargetDeviceName(NEW_COMMAND).withCommandExpiryMilliseconds(Command.NO_EXPIRY).build();
         Thread.sleep(2000);
-        Assert.assertTrue(testActiveCommand.getCommandExpiryMilliseconds()==Command.NO_EXPIRY);
+        Assert.assertTrue(testActiveCommand.getCommandExpiryMilliseconds() == Command.NO_EXPIRY);
         Assert.assertTrue(testActiveCommand.isActive());
     }
 
     @Test
     public void accessPayloadFieldGetterAndReturnValue() {
-        String payload="HELLO";
+        String payload = "HELLO";
         Command<String> testCommandWithPayload = CommandBuilder.<String>builder().withTargetDeviceName(NEW_COMMAND).withCommandPayload(payload).build();
         Assert.assertThat(testCommandWithPayload.getPayloadFieldValue("bytes"), is(payload.getBytes()));
     }
-
-
 
 
 }

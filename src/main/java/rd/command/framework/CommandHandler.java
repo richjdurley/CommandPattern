@@ -1,10 +1,8 @@
 package rd.command.framework;
 
 import rd.command.framework.domain.Command;
-import rd.command.framework.domain.CommandResult;
+import reactor.core.publisher.Mono;
 
-import java.util.concurrent.Callable;
-
-public interface CommandHandler<P, Result> {
-    Callable<Result> handle(Command<P> command);
+public interface CommandHandler<Payload, Result> {
+    Mono<Result> handle(Command<Payload> command);
 }

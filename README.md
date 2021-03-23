@@ -1,26 +1,34 @@
-#Command Pattern example application in Java Microservices
-###Rich Durley
+# Command Pattern example application in Java Microservices
 
-In this article we introduce how the command pattern can be used in Microservices and how it differs from events. Commands should be used in a domain that requires extensible behaviour without knowing ahead what it will be.
-You will therefore often see it used in frameworks; an obvious historical example being Java Swing Action and ActionHandler classes.
+### Rich Durley
 
-In this sense we should cautiously apply the use of Commands in our APIs to those domains that require extensibility and/or frameworks on which concrete implementations' built.  A contained domain would be better represented by API endpoints with specific signatures.
+In this article we introduce how the command pattern can be used in Microservices and how it differs from events.
+Commands should be used in a domain that requires extensible behaviour without knowing ahead what it will be. You will
+therefore often see it used in frameworks; an obvious historical example being Java Swing Action and ActionHandler
+classes.
 
-###What is a command ?
+In this sense we should cautiously apply the use of Commands in our APIs to those domains that require extensibility
+and/or frameworks on which concrete implementations' built. A contained domain would be better represented by API
+endpoints with specific signatures.
 
-A command is used to decouple a client that requests an action from a handler that invokes the action on a domain resource(s) that may result in changing the state of a resource. Different
+### What is a command ?
+
+A command is used to decouple a client that requests an action from a handler that invokes the action on a domain
+resource(s) that may result in changing the state of a resource. Different
 
 ```client -> command -> abstract command handler -> concrete command handler -> changeState.of(stateObjects...)```
 
 e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn()
 
-Command Query Responsibility Segregation (CQRS) extends this pattern to publish state change events form building a read optimised view.  An event publisher could publish to an internal event loop, external message broker or as a result of database change data capture 
+Command Query Responsibility Segregation (CQRS) extends this pattern to publish state change events form building a read
+optimised view. An event publisher could publish to an internal event loop, external message broker or as a result of
+database change data capture
 
 ```client -> command -> abstract command handler -> concrete command handler -> changeState.of(stateObjects...) -> event -> event publisher |-> event subscriber -> updateReadModelView```
-  
+
 e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn() -> LightTurnedOnEvent
 
-###Attributes of a Command
+### Attributes of a Command
 
     Commands can be aggregated into higher level commands e.g. client -> TurnOffGroupCommand(groupName) -> LightGroupHandler -> forEachLight(ingroup).turnOff() 
 
@@ -34,7 +42,7 @@ e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn(
 
     Commands can implement retry logic
 
-###How is a command different to an event?
+### How is a command different to an event?
 
     Events originate inside the service boundary
 
@@ -50,7 +58,7 @@ e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn(
 
     They cannot guarantee transactional semantics as a failed event process cannot be rolled back the domain to the state before the event was published
 
-###When to use a command
+### When to use a command
 
     Use when a client does not not need to be aware of the implementation of an object's processing, only on the success or failure of an action on that object, that is possibly in the future
 
@@ -58,7 +66,7 @@ e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn(
 
     When transactional semantics are required
 
-###What is command sourcing
+### What is command sourcing
 
     Command sourcing is when a history of executed commands is stored, and that these commands can be replayed to reconstitute a domain
 
@@ -68,7 +76,7 @@ e.g. smart_device -> turnOnLightCommand -> LightCommandHandler -> LightA.turnOn(
 
     In contrast event sourcing implementations need to capture and replay the history of all events from a know snapshot to reconstitute even part of a domain
 
-###When to use command sourcing
+### When to use command sourcing
 
     When a history of state is required
 

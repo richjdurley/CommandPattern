@@ -1,10 +1,9 @@
 package rd.command.framework;
 
-import org.springframework.util.concurrent.ListenableFutureCallback;
 import rd.command.framework.domain.Command;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
-public interface DeviceAdaptor<P,R> {
-    public Callable<R> action(Command<P> command);
+public interface DeviceAdaptor<P, R> {
+    public Future<R> action(Command<P> command);
 }

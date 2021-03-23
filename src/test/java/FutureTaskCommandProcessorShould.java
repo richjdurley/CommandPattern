@@ -1,18 +1,3 @@
-import org.junit.Assert;
-import org.junit.Test;
-import rd.command.framework.CommandHandler;
-import rd.command.framework.FutureTaskCommandHandler;
-import rd.command.framework.domain.Command;
-import rd.command.framework.domain.CommandBuilder;
-import rd.command.framework.domain.CommandResult;
-import rd.command.framework.domain.FailedResult;
-
-import java.util.concurrent.Future;
-
-import static org.hamcrest.CoreMatchers.is;
-import static rd.command.framework.domain.CommandStatus.FAILED;
-import static rd.command.framework.domain.CommandStatus.SUCCEEDED;
-
 public class FutureTaskCommandProcessorShould {
 
     /*

@@ -6,14 +6,18 @@ public final class CommandBuilder<P> {
     private String targetDeviceName;
     private String commandActionName;
     private P commandActionPayload;
-    private String commandUUID= UUID.randomUUID().toString();
+    private String commandUUID = UUID.randomUUID().toString();
     private long commandTimestamp = System.currentTimeMillis();
     private long commandExpiryMilliseconds = Command.DEFAULT_EXPIRY_MILLISECONDS;
-    
+
     private CommandBuilder() {
     }
 
-    public static <P> CommandBuilder<P> builder() { return new CommandBuilder<>();};
+    public static <P> CommandBuilder<P> builder() {
+        return new CommandBuilder<>();
+    }
+
+    ;
 
     public CommandBuilder<P> withTargetDeviceName(String targetDeviceName) {
         this.targetDeviceName = targetDeviceName;
@@ -24,7 +28,7 @@ public final class CommandBuilder<P> {
         this.commandActionName = commandActionName;
         return this;
     }
-    
+
     public CommandBuilder<P> withCommandPayload(P commandPayload) {
         this.commandActionPayload = commandPayload;
         return this;
