@@ -15,7 +15,7 @@ import java.util.concurrent.Future;
 public class LightAdaptor implements DeviceAdaptor<Object, LightState> {
     @Override
     public Future<LightState> action(Command<Object> command) {
-        var result = switch (command.getCommandActionName()) {
+        var result = switch (command.getName()) {
             default -> LightState.OFF;
         };
 

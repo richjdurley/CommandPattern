@@ -33,7 +33,7 @@ public class LightCommandHandler implements CommandHandler<Object, LightDeviceRe
     public Mono<LightDeviceResult> handle(Command<Object> command) {
         return WebClient.create().post()
                 .uri(builder -> builder.scheme("http")
-                        .host("localhost").port(8080).path("/mock/provider/" + command.getTargetDeviceName() + "/" + command.getCommandActionName())
+                        .host("localhost").port(8080).path("/mock/provider/" + command.getTargetResourceURI() + "/" + command.getName())
                         .build())
                 .retrieve()
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.just(new InfrastructureException("Internal Server Error")))

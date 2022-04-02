@@ -1,12 +1,14 @@
 package rd.command.framework.domain;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public final class CommandBuilder<P> {
-    private String targetDeviceName;
-    private String commandActionName;
-    private P commandActionPayload;
-    private String commandUUID = UUID.randomUUID().toString();
+    private String targetResourceURI;
+    private String commandName;
+    private String commandType;
+    private Optional<P> commandPayload = Optional.empty();
+    private String commandId = UUID.randomUUID().toString();
     private long commandTimestamp = System.currentTimeMillis();
     private long commandExpiryMilliseconds = Command.DEFAULT_EXPIRY_MILLISECONDS;
 
@@ -17,25 +19,28 @@ public final class CommandBuilder<P> {
         return new CommandBuilder<>();
     }
 
-    ;
-
-    public CommandBuilder<P> withTargetDeviceName(String targetDeviceName) {
-        this.targetDeviceName = targetDeviceName;
+    public CommandBuilder<P> withTargetResourceURI(String targetResourceURI) {
+        this.targetResourceURI = targetResourceURI;
         return this;
     }
 
-    public CommandBuilder<P> withCommandActionName(String commandActionName) {
-        this.commandActionName = commandActionName;
+    public CommandBuilder<P> withCommandName(String commandName) {
+        this.commandName = commandName;
+        return this;
+    }
+
+    public CommandBuilder<P> withCommandType(String commandType) {
+        this.commandType = commandType;
         return this;
     }
 
     public CommandBuilder<P> withCommandPayload(P commandPayload) {
-        this.commandActionPayload = commandPayload;
+        this.commandPayload = Optional.of(commandPayload);
         return this;
     }
 
-    public CommandBuilder<P> withCommandUUID(String commandUUID) {
-        this.commandUUID = commandUUID;
+    public CommandBuilder<P> withCommandId(String commandId) {
+        this.commandId = commandId;
         return this;
     }
 
@@ -50,6 +55,6 @@ public final class CommandBuilder<P> {
     }
 
     public Command<P> build() {
-        return new Command<P>(this.targetDeviceName, this.commandActionName, this.commandActionPayload, this.commandUUID, this.commandTimestamp, this.commandExpiryMilliseconds);
+        return new Command(this.targetResourceURI, this.commandName, this.commandType, this.commandPayload, this.commandId, this.commandTimestamp, this.commandExpiryMilliseconds);
     }
 }

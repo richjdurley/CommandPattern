@@ -16,7 +16,7 @@ public class LightCommandHandlerTest {
         Light light = new Light("mylight");
         LightAdaptor lightAdaptor = new LightAdaptor();
         LightCommandHandler lightCommandHandler = new LightCommandHandler(lightAdaptor);
-        lightCommandHandler.handle(CommandBuilder.builder().withTargetDeviceName("mylight").build());
+        lightCommandHandler.handle(CommandBuilder.builder().withTargetResourceURI("mylight").build());
         Assert.assertTrue(light.isOn());
     }
 
@@ -25,8 +25,8 @@ public class LightCommandHandlerTest {
         Light light = new Light("mylight");
         LightAdaptor lightAdaptor = new LightAdaptor();
         LightCommandHandler lightCommandHandler = new LightCommandHandler(lightAdaptor);
-        lightCommandHandler.handle(CommandBuilder.builder().withTargetDeviceName(LightCommandNames.TURN_ON_COMMAND_NAME).build());
-        lightCommandHandler.handle(CommandBuilder.builder().withCommandActionName(LightCommandNames.TURN_OFF_COMMAND_NAME).build());
+        lightCommandHandler.handle(CommandBuilder.builder().withTargetResourceURI(LightCommandNames.TURN_ON_COMMAND_NAME).build());
+        lightCommandHandler.handle(CommandBuilder.builder().withCommandName(LightCommandNames.TURN_OFF_COMMAND_NAME).build());
         Assert.assertTrue(light.isOff());
     }
 

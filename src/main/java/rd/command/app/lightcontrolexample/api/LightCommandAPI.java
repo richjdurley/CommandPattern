@@ -22,7 +22,7 @@ public class LightCommandAPI implements CommandController<Object, LightDeviceRes
     @RequestMapping(value = "/{devicename}/{lightcommandname}", method = RequestMethod.POST)
     public Mono<LightDeviceResult> handle(@PathVariable String devicename, @PathVariable String lightcommandname) {
         //handles the light command and returns the result string "success" or throws an exception
-        Command<Object> command = CommandBuilder.builder().withTargetDeviceName(devicename).withCommandActionName(lightcommandname).build();
+        Command<Object> command = CommandBuilder.builder().withTargetResourceURI(devicename).withCommandName(lightcommandname).build();
         return lightCommandHandler.handle(command);
     }
 
