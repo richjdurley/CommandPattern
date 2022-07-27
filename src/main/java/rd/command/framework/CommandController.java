@@ -1,9 +1,10 @@
 package rd.command.framework;
 
+import rd.command.framework.domain.CommandState;
 import reactor.core.publisher.Mono;
 
 public interface CommandController<P, R> {
-    Mono<R> handle(String commandName, String commandActionName);
+    Mono<CommandState<R>> handle(String commandName, String commandActionName);
 
-    Mono<R> handleWithPayload(String commandName, String commandActionName, P payload);
+    Mono<CommandState<R>> handleWithPayload(String commandName, String commandActionName, P payload);
 }

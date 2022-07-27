@@ -2,10 +2,10 @@
 
 In this article we introduce how the command pattern can  be implemented for Java Microservices.
 
-The command pattern enables the abstraction / decoupling of requesting a command from the concrete implementation(s) that action the behaviour of the command. 
+The command pattern enables the decoupling of requesting a command from the concrete implementation that actions the behaviour of the command. 
 
 It is often used in frameworks or SDKs; an obvious historical example being Java Swing; Action and ActionHandler
-classes. A modern example could be within home automation devices such as Alexa, where it is possible to build a routine of commands initiated by a single vocal command.
+classes. A modern example could be within home automation devices such as Amazon Alexa, where it is possible to build a routine of commands initiated by a single vocal command.
 
 "Alexa turn my living room orange" - will change all your living rooms lights orange - very nice.
 
@@ -18,12 +18,11 @@ The choice is largely aligned to the use case architecture you are implementing 
 In this first article we will just use simple commands in a single domain. In the next article we will discuss orchestration and choreography patterns. 
 
 ### Base requirements
-
-- Allow any client to send a command to a backend command handler
-- A command handler can execute an action compromising of one or more actionable steps to change a single domain's state.
-- The command can capture momentos (a log) of the changes applied in each action step (for audit and recovery)
-- A command's handler can implement a compensating action when failures occur.
-- A command will have a terminal state of succeeded, partially succeeded or failed. 
+- Allow light client to send a command to a concrete command handler
+- A concrete command handler can execute an action compromising of one or more actionable steps to change a single domain's state.
+- The command can optionally capture momentos (a log) of the changes applied in each action step (for audit and recovery)
+- A concrete command's handler can implement a compensating action when failures occur.
+- A command will have a terminal state of succeeded, partially succeeded, failed, unknown. 
 
 Example of a basic command class.
 ```

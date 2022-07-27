@@ -3,58 +3,68 @@ package rd.command.framework.domain;
 import java.util.Optional;
 import java.util.UUID;
 
-public final class CommandBuilder<P> {
+public final class CommandBuilder {
     private String targetResourceURI;
     private String commandName;
     private String commandType;
-    private Optional<P> commandPayload = Optional.empty();
-    private String commandId = UUID.randomUUID().toString();
-    private long commandTimestamp = System.currentTimeMillis();
+    private Object commandPayload;
+    private String commandId;
+    private long commandTimestamp;
     private long commandExpiryMilliseconds = Command.DEFAULT_EXPIRY_MILLISECONDS;
 
     private CommandBuilder() {
+        this.commandPayload=null;
+        this.commandTimestamp= System.currentTimeMillis();
+        this.commandId=UUID.randomUUID().toString();
     }
 
-    public static <P> CommandBuilder<P> builder() {
-        return new CommandBuilder<>();
+    private CommandBuilder(Object payload) {
+        super();
+        this.commandPayload = payload;
     }
 
-    public CommandBuilder<P> withTargetResourceURI(String targetResourceURI) {
+    public static <P> CommandBuilder builder(P payload) {
+        return new CommandBuilder(payload);
+    }
+
+    public static CommandBuilder builder() {
+        return new CommandBuilder();
+    }
+
+    public CommandBuilder withTargetResourceURI(String targetResourceURI) {
         this.targetResourceURI = targetResourceURI;
         return this;
     }
 
-    public CommandBuilder<P> withCommandName(String commandName) {
+    public CommandBuilder withCommandName(String commandName) {
         this.commandName = commandName;
         return this;
     }
 
-    public CommandBuilder<P> withCommandType(String commandType) {
+    public CommandBuilder withCommandType(String commandType) {
         this.commandType = commandType;
         return this;
     }
 
-    public CommandBuilder<P> withCommandPayload(P commandPayload) {
-        this.commandPayload = Optional.of(commandPayload);
-        return this;
-    }
-
-    public CommandBuilder<P> withCommandId(String commandId) {
+    public CommandBuilder withCommandId(String commandId) {
         this.commandId = commandId;
         return this;
     }
 
-    public CommandBuilder<P> withCommandTimestamp(long commandTimestamp) {
+    public CommandBuilder withCommandTimestamp(long commandTimestamp) {
         this.commandTimestamp = commandTimestamp;
         return this;
     }
 
-    public CommandBuilder<P> withCommandExpiryMilliseconds(long commandExpiryMilliseconds) {
+    public CommandBuilder withCommandExpiryMilliseconds(long commandExpiryMilliseconds) {
         this.commandExpiryMilliseconds = commandExpiryMilliseconds;
         return this;
     }
 
-    public Command<P> build() {
-        return new Command(this.targetResourceURI, this.commandName, this.commandType, this.commandPayload, this.commandId, this.commandTimestamp, this.commandExpiryMilliseconds);
+    public Command build() {
+        if (commandPayload!=null)
+            return new Command(this.targetResourceURI, this.commandName, this.commandType, Optional.of(this.commandPayload), this.commandId, this.commandTimestamp, this.commandExpiryMilliseconds);
+        else
+            return new Command(this.targetResourceURI, this.commandName, this.commandType, Optional.empty(), this.commandId, this.commandTimestamp, this.commandExpiryMilliseconds);
     }
 }

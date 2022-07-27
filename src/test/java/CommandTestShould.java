@@ -25,7 +25,7 @@ public class CommandTestShould {
 
     @Test
     public void haveACommandWithData() {
-        Command<String> testCommand = CommandBuilder.<String>builder().withCommandPayload(COMMAND_DATA).build();
+        Command<?> testCommand = CommandBuilder.builder(COMMAND_DATA).build();
         Assert.assertThat(testCommand.getPayload(), is(COMMAND_DATA));
     }
 
@@ -55,7 +55,7 @@ public class CommandTestShould {
     @Test
     public void accessPayloadFieldGetterAndReturnValue() {
         String payload = "HELLO";
-        Command<String> testCommandWithPayload = CommandBuilder.<String>builder().withTargetResourceURI(NEW_COMMAND).withCommandPayload(payload).build();
+        Command<?> testCommandWithPayload = CommandBuilder.builder(payload).withTargetResourceURI(NEW_COMMAND).build();
         Assert.assertThat(testCommandWithPayload.getPayloadFieldValue("bytes"), is(payload.getBytes()));
     }
 
