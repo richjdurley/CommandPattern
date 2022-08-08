@@ -1,5 +1,7 @@
 package rd.device.framework.domain;
 
+import rd.device.framework.api.handler.FailedResult;
+
 public class CommandState<R> {
     CommandStates status;
     R result;

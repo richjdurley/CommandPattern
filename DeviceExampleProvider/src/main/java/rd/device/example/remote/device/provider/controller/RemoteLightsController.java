@@ -11,7 +11,7 @@ import rd.device.example.remote.device.provider.domain.LightDeviceMap;
 import rd.device.example.remote.device.provider.model.LightDeviceResult;
 
 @RestController
-@RequestMapping(value = "/mock/provider")
+@RequestMapping(value = "/mock/devices")
 public class RemoteLightsController {
 
     @Autowired

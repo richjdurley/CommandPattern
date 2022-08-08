@@ -56,7 +56,7 @@ public class CommandTestShould {
     public void accessPayloadFieldGetterAndReturnValue() {
         String payload = "HELLO";
         Command testCommandWithPayload = CommandBuilder.builder(payload).withTargetResourceURI(NEW_COMMAND).build();
-        Assert.assertThat(testCommandWithPayload.getPayloadFieldValue("bytes"), is(payload.getBytes()));
+        Assert.assertThat(testCommandWithPayload.getJSONPayloadFieldValue("bytes"), is(payload.getBytes()));
     }
 
 

@@ -6,9 +6,9 @@ import reactor.core.publisher.Mono;
 
 public class CommandAdaptor<R> {
 
-    private ExecutionStrategy<R> executionStrategy;
+    private RemoteExecutionBinding<R> executionStrategy;
 
-    public CommandAdaptor(ExecutionStrategy<R> executionStrategy) {
+    public CommandAdaptor(RemoteExecutionBinding<R> executionStrategy) {
         this.executionStrategy = executionStrategy;
     }
 

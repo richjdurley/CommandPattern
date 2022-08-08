@@ -1,4 +1,4 @@
-package rd.device.framework.api.controller.handler.ifvalidrequestthen;
+package rd.device.framework.api.handler.ifvalidrequestthen;
 
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -17,6 +17,6 @@ public abstract class AbstractIfValidRequestThenHandler<T extends ValidatableReq
         return thenFunction.then();
     }
 
-    public abstract Mono<ServerResponse> handle(ServerRequest request);
+    public abstract Mono<ServerResponse> handleCommand(ServerRequest request);
 
 }

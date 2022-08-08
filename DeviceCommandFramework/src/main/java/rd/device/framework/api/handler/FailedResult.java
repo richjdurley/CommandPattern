@@ -1,4 +1,4 @@
-package rd.device.framework.domain;
+package rd.device.framework.api.handler;
 
 public class FailedResult {
 

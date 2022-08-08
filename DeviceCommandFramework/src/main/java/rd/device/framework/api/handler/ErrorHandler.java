@@ -1,4 +1,4 @@
-package rd.device.framework.api.controller.handler;
+package rd.device.framework.api.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

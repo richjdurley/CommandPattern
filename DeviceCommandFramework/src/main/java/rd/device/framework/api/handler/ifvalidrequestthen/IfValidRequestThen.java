@@ -1,4 +1,4 @@
-package rd.device.framework.api.controller.handler.ifvalidrequestthen;
+package rd.device.framework.api.handler.ifvalidrequestthen;
 
 
 import org.springframework.web.reactive.function.server.ServerResponse;
