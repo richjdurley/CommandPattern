@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.http.HttpStatus;
 
 
-public class ErrorResponse {
+public class StatusResponse {
 
     private final int statusCode;
     private final String reason;
 
     @JsonCreator
-    public ErrorResponse(@JsonProperty("statusCode") final HttpStatus httpStatus, @JsonProperty("reason") final String reason) {
+    public StatusResponse(@JsonProperty("statusCode") final HttpStatus httpStatus, @JsonProperty("reason") final String reason) {
         this.statusCode = httpStatus.value();
         this.reason = reason;
     }

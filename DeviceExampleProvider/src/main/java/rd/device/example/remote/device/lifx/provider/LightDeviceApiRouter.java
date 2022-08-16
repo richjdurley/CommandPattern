@@ -27,8 +27,8 @@ public class LightDeviceApiRouter {
                 req -> handler.handleStatus(req)
         ).and(route(OPTIONS("/status"),
                         req -> handler.handleStatus(req)))
-                .and(route(POST("/devices/{device}"),
-                        req -> handler.handleCommand(req)))
+                .and(route(POST("/devices/{device}/{operation}"),
+                        req -> handler.handleDeviceOperation(req)))
                 .andOther(route(RequestPredicates.all(),
                         request -> this.errorHandler.handleError(new PathNotFoundException("not found"))));
     }

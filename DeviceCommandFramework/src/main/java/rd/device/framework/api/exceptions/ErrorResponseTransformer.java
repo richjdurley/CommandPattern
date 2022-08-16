@@ -9,11 +9,11 @@ public class ErrorResponseTransformer {
         return monoError.transform(ThrowableTransformer::transform)
                 .flatMap(translation -> ServerResponse
                         .status(translation.getHttpStatus()).contentType(MediaType.APPLICATION_JSON)
-                        .body(Mono.just(new ErrorResponse(translation.getHttpStatus(), translation.getMessage())), ErrorResponse.class));
+                        .body(Mono.just(new StatusResponse(translation.getHttpStatus(), translation.getMessage())), StatusResponse.class));
     }
 
-    public static <T extends Throwable> ErrorResponse transformToErrorResponse(final Throwable error) {
-        return new ErrorResponse(ThrowableTransformer.from(error).getHttpStatus(), ThrowableTransformer.from(error).getMessage());
+    public static <T extends Throwable> StatusResponse transformToErrorResponse(final Throwable error) {
+        return new StatusResponse(ThrowableTransformer.from(error).getHttpStatus(), ThrowableTransformer.from(error).getMessage());
     }
 
 }
