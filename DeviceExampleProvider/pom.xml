@@ -10,7 +10,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>DeviceExampleProvider</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
 
+        <dependency>
+            <groupId>CommandPattern</groupId>
+            <artifactId>DeviceCommandFramework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+    </dependencies>
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
