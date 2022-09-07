@@ -41,7 +41,6 @@ public class TileHelper {
      * Attempt to find a LIFX Tile by it's label.
      *
      * @param label the label of the Tile
-     *
      * @return the discovered Tile (or null)
      */
     public static Tile getTileByLabel(String label) {
@@ -60,7 +59,6 @@ public class TileHelper {
      * Attempt to find a LIFX Tile by it's MAC address.
      *
      * @param macAddress the MAC address of the Tile
-     *
      * @return the discovered Tile (or null)
      */
     public static Tile getTileByMacAddress(String macAddress) {

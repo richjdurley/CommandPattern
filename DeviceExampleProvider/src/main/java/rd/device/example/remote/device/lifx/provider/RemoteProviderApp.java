@@ -1,7 +1,6 @@
 package rd.device.example.remote.device.lifx.provider;
 
 import com.stuntguy3000.lifxlansdk.handler.PacketHandler;
-import com.stuntguy3000.lifxlansdk.helper.DeviceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -50,7 +49,7 @@ public class RemoteProviderApp {
 
     public static void main(String[] args) throws SocketException {
         List<InetAddress> broadcastList = listAllBroadcastAddresses();
-        if (broadcastList.size()>0) {
+        if (broadcastList.size() > 0) {
             logger.info("Running Local API to connect to LIFX bulbs on UDP broadcast address " + broadcastList.get(0).getHostAddress());
             PacketHandler.setBroadcastAddress(broadcastList.get(0));
             SpringApplication.run(RemoteProviderApp.class, args);

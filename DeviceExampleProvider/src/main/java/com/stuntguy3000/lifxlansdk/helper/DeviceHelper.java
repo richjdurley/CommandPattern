@@ -69,7 +69,6 @@ public class DeviceHelper {
      * To target lights, see {@link LightHelper}
      *
      * @param label the associated label
-     *
      * @return the discovered device (or null)
      */
     public static Device getDeviceByLabel(String label) {
@@ -92,7 +91,6 @@ public class DeviceHelper {
      * To target lights, see {@link LightHelper}
      *
      * @param macAddress the associated MAC address.
-     *
      * @return the discovered device (or null)
      */
     public static Device getDeviceByMacAddress(String macAddress) {

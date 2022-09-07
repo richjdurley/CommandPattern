@@ -41,7 +41,6 @@ public class LightHelper {
      * Attempt to find a LIFX light by it's label.
      *
      * @param label the label of the light
-     *
      * @return the discovered light (or null)
      */
     public static Light getLightByLabel(String label) {
@@ -60,7 +59,6 @@ public class LightHelper {
      * Attempt to find a LIFX light by it's MAC address.
      *
      * @param macAddress the MAC address of the light
-     *
      * @return the discovered light (or null)
      */
     public static Light getLightByMacAddress(String macAddress) {

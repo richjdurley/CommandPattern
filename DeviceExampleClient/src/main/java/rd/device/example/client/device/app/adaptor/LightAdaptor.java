@@ -16,12 +16,12 @@ public class LightAdaptor implements RemoteExecutionBinding<LightDeviceResult> {
     public Mono<CommandState<LightDeviceResult>> execute(Command command) {
         return WebClient.create().post()
                 .uri(builder -> builder.scheme("http")
-                        .host("localhost").port(8080).path("/mock/devices/" + command.getName() + "/" + command.getAction().substring(command.getAction().lastIndexOf('_') + 1))
+                        .host("localhost").port(8080).path("/devices/" + command.getName() + "/" + command.getAction().substring(command.getAction().lastIndexOf('_') + 1))
                         .build())
                 .retrieve()
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.just(new InfrastructureException("Internal Server Error")))
                 .onStatus(HttpStatus::is4xxClientError, response -> Mono.just(new BadRequestException("Bad Request"))).
-                bodyToMono(LightDeviceResult.class).map(ldr-> new CommandState<>(new LightDeviceResult(ldr.getDeviceresult())));
+                bodyToMono(LightDeviceResult.class).map(ldr -> new CommandState<>(new LightDeviceResult(ldr.getDeviceresult())));
     }
 
 }

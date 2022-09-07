@@ -41,7 +41,6 @@ public class RelayHelper {
      * Attempt to find a LIFX Relay by it's label.
      *
      * @param label the label of the Relay
-     *
      * @return the discovered Relay (or null)
      */
     public static Relay getRelayByLabel(String label) {
@@ -60,7 +59,6 @@ public class RelayHelper {
      * Attempt to find a LIFX Relay by it's MAC address.
      *
      * @param macAddress the MAC address of the Relay
-     *
      * @return the discovered Relay (or null)
      */
     public static Relay getRelayByMacAddress(String macAddress) {

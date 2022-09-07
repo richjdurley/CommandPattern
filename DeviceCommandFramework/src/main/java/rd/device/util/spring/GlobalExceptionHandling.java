@@ -19,6 +19,6 @@ public class GlobalExceptionHandling {
     @ResponseBody
     @ResponseStatus(BAD_REQUEST)
     public SimpleErrorResponse exceptionHandler(BadRequestException exception) {
-        return new SimpleErrorResponse(BAD_REQUEST.value(),exception.getMessage());
+        return new SimpleErrorResponse(BAD_REQUEST.value(), exception.getMessage());
     }
 }

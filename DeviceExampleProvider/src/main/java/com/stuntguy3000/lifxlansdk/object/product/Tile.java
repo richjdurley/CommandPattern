@@ -64,7 +64,6 @@ public class Tile extends Light {
      * @param x          the x value to start from, likely 0
      * @param y          the y value to start from, likely 0
      * @param width      the width of each item in the chain (8 fort the tile, 5 for the candle)
-     *
      * @return the response packet object for this request
      */
     public List<State64> get64(int tile_index, int length, int x, int y, int width) {
@@ -128,7 +127,6 @@ public class Tile extends Light {
      * @param speed          the time it takes for one cycle of the effect in milliseconds
      * @param duration       the time the effect will run for in nanoseconds
      * @param palette        the colours in the effect
-     *
      * @return the response packet object for this request
      */
     public StateTileEffect setTileEffect(TileEffectType tileEffectType, int speed, long duration, Color... palette) {
@@ -149,7 +147,6 @@ public class Tile extends Light {
      *
      * @param speed    the time it takes for one cycle of the effect in milliseconds
      * @param duration the time the effect will run for in nanoseconds
-     *
      * @return the response packet object for this request
      */
     public StateTileEffect runTileEffectFlame(int speed, long duration) {
@@ -162,7 +159,6 @@ public class Tile extends Light {
      * @param speed    the time it takes for one cycle of the effect in milliseconds
      * @param duration the time the effect will run for in nanoseconds
      * @param color    the colours to morph through
-     *
      * @return the response packet object for this request
      */
     public StateTileEffect runTileEffectMorph(int speed, long duration, Color... color) {

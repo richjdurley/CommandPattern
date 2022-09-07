@@ -2,15 +2,12 @@ package rd.device.framework.api.request;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
 import java.util.Map;
 import java.util.UUID;
 
 public final class CommandRequestBuilder {
     String requestId = UUID.randomUUID().toString();
-    Map<String, Object> headers=CommandDefaults.EMPTY_HEADERS;
+    Map<String, Object> headers = CommandDefaults.EMPTY_HEADERS;
     String correlationId = UUID.randomUUID().toString();
     String dataContentType = CommandDefaults.DEFAULT_AS_JSON_CONTENT_TYPE;
     String type = "";
@@ -59,7 +56,8 @@ public final class CommandRequestBuilder {
         return this;
     }
 
-    public CommandRequestBuilder withPayloadBytes(byte[] payload) {;
+    public CommandRequestBuilder withPayloadBytes(byte[] payload) {
+        ;
         this.payload = bytesToStringUTFNIO(payload);
         return this;
     }

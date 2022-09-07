@@ -94,7 +94,6 @@ public class MultiZone extends Light {
      *
      * @param start_index the index to start at (inclusive)
      * @param end_index   the index to end at (inclusive)
-     *
      * @return the response packet object for this request
      */
     @Deprecated
@@ -179,7 +178,6 @@ public class MultiZone extends Light {
      * @param speed     the time it takes for one cycle of the effect in milliseconds
      * @param duration  the time the effect will run for in nanoseconds
      * @param direction the direction to move the zones in
-     *
      * @return the response packet object for this request
      */
     public StateMultiZoneEffect runMultiZoneEffectMove(int speed, long duration, Direction direction) {

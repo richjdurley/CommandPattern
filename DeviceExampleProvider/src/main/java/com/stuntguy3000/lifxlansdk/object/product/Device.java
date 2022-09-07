@@ -261,7 +261,6 @@ public class Device implements StateSavable {
      * Echo request
      *
      * @param message the message to be echoed by the device
-     *
      * @return the response packet object for this request
      */
     public EchoResponse echoRequest(String message) {
@@ -274,7 +273,6 @@ public class Device implements StateSavable {
      * Set the label of the device
      *
      * @param label the desired label
-     *
      * @return the response packet object for this request
      */
     public StateLabel setLabel(String label) {
@@ -295,7 +293,6 @@ public class Device implements StateSavable {
      *
      * @param location the UUID id of the location
      * @param label    the label of the location
-     *
      * @return the response packet object for this request
      */
     public StateLocation setLocation(UUID location, String label) {
@@ -312,7 +309,6 @@ public class Device implements StateSavable {
      *
      * @param group the UUID id of the group
      * @param label the label of the group
-     *
      * @return the response packet object for this request
      */
     public StateGroup setGroup(UUID group, String label) {

@@ -15,8 +15,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.logging.Level;
 
-import static rd.device.framework.api.filters.SharedHTTPHeaders.addHeaders;
-
 @Component
 @Order(Integer.MIN_VALUE)
 public class GlobalTransactionFilter implements WebFilter {

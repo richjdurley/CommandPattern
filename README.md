@@ -1,30 +1,33 @@
 # The Command Pattern Applied to Java Microservices
 
-In this article we introduce how the command pattern can  be implemented for Java Microservices.
+In this article we will discuss how command, gateway and hexagonal architecture patterns can be used when designing and delivering Automation use cases 
+e.g. Home Automation, IIOT, Robotics, Smart Cities etc
 
-The command pattern enables the decoupling of requesting a command from the concrete implementation that actions the behaviour of the command. 
+The command pattern enables the decoupling o a client requesting a command from the concrete implementation that executes the command.
+It is important that the implementation of "execution" of the command should not be visible or matter to the requester.
 
-It is often used in frameworks or SDKs; an obvious historical example being Java Swing; Action and ActionHandler
-classes. A modern example could be within home automation devices such as Amazon Alexa, where it is possible to build a routine of commands initiated by a single vocal command.
+The gateway pattern provides routing capabilities from one canonical public interface (port) to many specific physical implementations (adaptors). 
 
-"Alexa turn my living room orange" - will change all your living rooms lights orange - very nice.
+Many modern examples are already here for home automation, robotics and IOT devices.
 
-Once executed the command may be successfully processed; partially processed, or failed.
+Generally we expect commands to be asynchronous. And we expect the result of a command to be provided some time in the future.
 
-If commands require consistency of multiple states then when errors occur we must implement compensating actions; either using a centralised transaction manager, orchestration engine or using distributed service choreography. 
+If commands require consistency across multiple domain's then when errors occur we must implement compensating actions; either
+using a centralised transaction manager, orchestration engine or using distributed service choreography. The choice here is largely 
+aligned to your architecture design approach & frameworks of choice.
 
-The choice is largely aligned to the use case architecture you are implementing and tools/sdks/frameworks of choice. 
-
-In this first article we will just use simple commands in a single domain. In the next article we will discuss orchestration and choreography patterns. 
+In this first article we will just use simple commands in a single domain. In the next article we will discuss
+orchestration and choreography patterns.
 
 ### Base requirements
-- Allow light client to send a command to a concrete command handler
-- A concrete command handler can execute an action compromising of one or more actionable steps to change a single domain's state.
-- The command can optionally capture momentos (a log) of the changes applied in each action step (for audit and recovery)
-- A concrete command's handler can implement a compensating action when failures occur.
-- A command will have a terminal state of succeeded, partially succeeded, failed, unknown. 
+
+- Allow a client to send a generic command to a command handler acting as a gateway to a number of device implementations e.g. light device
+- Create a concrete command handler that executes the command on the remote resource 
+- Asynchronously return the command state.
+- The command will have a terminal state of succeeded, partially succeeded, failed, unknown.
 
 Example of a basic command class.
+
 ```
 public class Command<P> {
     private final String id;

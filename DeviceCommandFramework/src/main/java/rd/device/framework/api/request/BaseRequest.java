@@ -19,7 +19,7 @@ public class BaseRequest {
         this.headers = headers;
         this.correlationId = correlationId;
         this.dataContentType = dataContentType;
-        this.type=type;
+        this.type = type;
         this.name = name;
         this.payload = payload;
     }

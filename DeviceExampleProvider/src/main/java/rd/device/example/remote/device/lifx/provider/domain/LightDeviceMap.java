@@ -12,7 +12,7 @@ public class LightDeviceMap {
     public LightDeviceMap(String[][] devices) {
         devicesMap = new ConcurrentHashMap<>();
         for (String[] device : devices) {
-            devicesMap.put(device[0], new Light(device[0], LightState.valueOf(device[1])));
+            devicesMap.put(device[0], new Light(device[0], LightStateEnum.valueOf(device[1])));
         }
     }
 

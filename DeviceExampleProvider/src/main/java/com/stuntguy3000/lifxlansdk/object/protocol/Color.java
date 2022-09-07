@@ -57,7 +57,6 @@ public class Color implements ByteData {
      * @param red   the red value (0-255)
      * @param green the green value (0-255)
      * @param blue  the blue value (0-255)
-     *
      * @return the created color instance
      */
     public static Color fromRGB(int red, int green, int blue) {
@@ -71,7 +70,6 @@ public class Color implements ByteData {
      * @param green  the green value (0-255)
      * @param blue   the blue value (0-255)
      * @param kelvin the kelvin value
-     *
      * @return the created color instance
      */
     public static Color fromRGBK(int red, int green, int blue, int kelvin) {
@@ -84,7 +82,6 @@ public class Color implements ByteData {
      * all colors are removed)
      *
      * @param colorsToIgnore any colors to ignore from selection
-     *
      * @return a randomly selected color
      */
     public static Color getRandomColor(Color... colorsToIgnore) {

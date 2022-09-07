@@ -1,9 +1,9 @@
 package rd.device.framework.api.request;
 
 
-
 import rd.device.framework.api.handler.ifvalidrequestthen.ValidatableRequest;
-import rd.device.framework.domain.*;
+import rd.device.framework.domain.Command;
+import rd.device.framework.domain.CommandBuilder;
 
 import java.util.Map;
 

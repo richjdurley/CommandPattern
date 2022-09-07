@@ -41,7 +41,6 @@ public class MultiZoneHelper {
      * Attempt to find a LIFX MultiZone by it's label.
      *
      * @param label the label of the MultiZone
-     *
      * @return the discovered MultiZone (or null)
      */
     public static MultiZone getMultiZoneByLabel(String label) {
@@ -60,7 +59,6 @@ public class MultiZoneHelper {
      * Attempt to find a LIFX MultiZone by it's MAC address.
      *
      * @param macAddress the MAC address of the MultiZone
-     *
      * @return the discovered MultiZone (or null)
      */
     public static MultiZone getMultiZoneByMacAddress(String macAddress) {

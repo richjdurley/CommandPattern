@@ -26,7 +26,6 @@ public interface StateSavable {
      * Restore the state of this device to the previously saved state
      *
      * @param delay the delay (in milliseconds) to perform any state restoration activities (e.g. color fade)
-     *
      * @return true if the lights were successfully restored to a previous state (if one exists)
      */
     default boolean restoreState(int delay) {

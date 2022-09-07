@@ -5,11 +5,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import rd.device.framework.CommandAdaptor;
-import rd.device.framework.api.request.CommandRequest;
-import rd.device.framework.api.handler.ifvalidrequestthen.AbstractIfValidRequestThenHandler;
-import rd.device.framework.domain.CommandState;
 import rd.device.framework.api.exceptions.EmptyRequestException;
+import rd.device.framework.api.handler.ifvalidrequestthen.AbstractIfValidRequestThenHandler;
+import rd.device.framework.api.request.CommandRequest;
+import rd.device.framework.domain.CommandState;
 import reactor.core.publisher.Mono;
+
 import static java.lang.String.format;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 

@@ -117,7 +117,6 @@ public class PacketHandler {
      *
      * @param message the message to send
      * @param device  the device to send it to
-     *
      * @return a list of returned packets (usually 1), can be empty
      */
     public static List<Packet> sendMessage(Message message, Device device) {
@@ -133,7 +132,6 @@ public class PacketHandler {
      * @param message        the message to send
      * @param device         the device to send it to
      * @param resultRequired true if a result is required (return packet)
-     *
      * @return a list of returned packets (usually 1), can be empty
      */
     public static List<Packet> sendMessage(Message message, Device device, boolean resultRequired) {
@@ -150,7 +148,6 @@ public class PacketHandler {
      * @param resultRequired         true if a result is required (return packet)
      * @param maxReceiveMessageCount the amount of messages to receive before returning all packets (used for
      *                               optimization)
-     *
      * @return a list of returned packets (usually 1), can be empty
      */
     public static List<Packet> sendMessage(Message message, Device device, boolean resultRequired, int maxReceiveMessageCount) {
@@ -168,7 +165,6 @@ public class PacketHandler {
      * @param maxReceiveMessageCount the amount of messages to receive before returning all packets (used for
      *                               optimization)
      * @param timeout                the maximum wait time for replies (in ms)
-     *
      * @return a list of returned packets (usually 1), can be empty
      */
     public static List<Packet> sendMessage(Message message, Device device, boolean resultRequired, int maxReceiveMessageCount, int timeout) {
@@ -185,7 +181,6 @@ public class PacketHandler {
      *                               optimization)
      * @param timeout                the maximum wait time for replies (in ms)
      * @param retry                  the amount of retries if socket the socket timeout is hit
-     *
      * @return a list of returned packets (usually 1), can be empty
      */
     public static List<Packet> sendMessage(Message message, Device device, boolean resultRequired, int maxReceiveMessageCount, int timeout, int retry) {
@@ -294,7 +289,6 @@ public class PacketHandler {
      * Builds a LIFX Packet from received data
      *
      * @param receivedData the received data
-     *
      * @return the constructed packet (or null if invalid)
      */
     private static Packet buildPacket(byte[] receivedData) {
@@ -342,7 +336,6 @@ public class PacketHandler {
      * @param message        the message
      * @param device         the targeted device, can be null to represent a broadcast
      * @param resultRequired if a result is required (only useful for controlling Set requests)
-     *
      * @return the constructed packet (or null)
      */
     private static Packet buildPacket(Message message, Device device, boolean resultRequired) {
@@ -374,7 +367,6 @@ public class PacketHandler {
      *
      * @param messageType  the type of message (packet ID)
      * @param messageBytes the payload data of the message
-     *
      * @return the constructed message (or null)
      */
     private static Message buildMessage(int messageType, byte[] messageBytes) {

@@ -1,4 +1,5 @@
 package rd.device.framework.domain;
+
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -26,12 +27,12 @@ public class Command {
     public Command(String name, String action) {
         this.name = name;
         this.action = action;
-        this.payloadContentType=MediaType.TEXT_PLAIN_VALUE;
-        this.payload="";
-        this.createdTimestamp=System.currentTimeMillis();
-        this.expiryMilliseconds=DEFAULT_EXPIRY_MILLISECONDS;
-        this.id= UUID.randomUUID().toString();
-        this.deviceResourceURI="";
+        this.payloadContentType = MediaType.TEXT_PLAIN_VALUE;
+        this.payload = "";
+        this.createdTimestamp = System.currentTimeMillis();
+        this.expiryMilliseconds = DEFAULT_EXPIRY_MILLISECONDS;
+        this.id = UUID.randomUUID().toString();
+        this.deviceResourceURI = "";
     }
 
     protected Command(String deviceResourceURI, String name, String action, String payload, String payloadContentType, String id, long createdTimestamp, long expiryMilliseconds) {

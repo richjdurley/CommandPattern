@@ -164,4 +164,12 @@ public class Light extends Device {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Light{");
+        sb.append("savedState=").append(savedState);
+        sb.append('}');
+        return sb.toString();
+    }
 }

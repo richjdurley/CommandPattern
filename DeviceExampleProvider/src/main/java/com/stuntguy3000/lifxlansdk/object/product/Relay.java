@@ -35,7 +35,6 @@ public class Relay extends Device {
      * Returns the power level of a relay item at a particular index
      *
      * @param relay_index the specified object's index
-     *
      * @return the response packet object for this request
      */
     public StateRPower getRPower(int relay_index) {
